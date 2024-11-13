@@ -1,0 +1,43 @@
+// Patient.java
+public class Patient {
+    private int id;
+    private String name;
+    private int age;
+    private String gender;
+    private String contact;
+    private String address;
+
+    // Constructor, getters, and setters
+}
+
+// Doctor.java
+public class Doctor {
+    private int id;
+    private String name;
+    private String specialization;
+    private String contact;
+    private String email;
+
+    // Constructor, getters, and setters
+}
+
+// Appointment.java
+public class Appointment {
+    private int id;
+    private Patient patient;
+    private Doctor doctor;
+    private String date;
+    private String time;
+
+    // Constructor, getters, and setters
+}
+
+// Bill.java
+public class Bill {
+    private int id;
+    private Patient patient;
+    private double amount;
+    private String date;
+
+    // Constructor, getters, and setters
+}
