@@ -1,0 +1,47 @@
+// PatientDAO.java
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class PatientDAO {
+    private Connection connection;
+
+    public PatientDAO() {
+        connection = DatabaseConnection.getConnection();
+    }
+
+    public void addPatient(Patient patient) {
+        String query = "INSERT INTO patients (name, age, gender, contact, address) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, patient.getName());
+            statement.setInt(2, patient.getAge());
+            statement.setString(3, patient.getGender());
+            statement.setString(4, patient.getContact());
+            statement.setString(5, patient.getAddress());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<Patient> getAllPatients() {
+        List<Patient> patients = new ArrayList<>();
+        String query = "SELECT * FROM patients";
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+            while (resultSet.next()) {
+                Patient patient = new Patient();
+                patient.setId(resultSet.getInt("patient_id"));
+                patient.setName(resultSet.getString("name"));
+                patient.setAge(resultSet.getInt("age"));
+                patient.setGender(resultSet.getString("gender"));
+                patient.setContact(resultSet.getString("contact"));
+                patient.setAddress(resultSet.getString("address"));
+                patients.add(patient);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return patients;
+    }
+}
